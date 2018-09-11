@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OOP_RPG
 {
@@ -14,8 +15,13 @@ namespace OOP_RPG
             this.hero = hero;
             this.game = game;
             this.AddMonster("Squid", 9, 8, 20);
+            this.AddMonster("Shark", 10, 6, 25);
+            this.AddMonster("Cobra", 7, 7, 21);
+            this.AddMonster("Hao", 6, 6, 26);
+
+
         }
-        
+
         public void AddMonster(string name, int strength, int defense, int hp) {
             var monster = new Monster();
             monster.Name = name;
@@ -27,7 +33,10 @@ namespace OOP_RPG
         }
         
         public void Start() {
-            var enemy = this.Monsters[0];
+            var RandomMonster = Monsters.OrderBy(p => Guid.NewGuid()).FirstOrDefault();
+            var SecondMonster = this.Monsters[1];
+            var LastMonster = this.Monsters.Last();
+            var enemy = RandomMonster;
             Console.WriteLine("You've encountered a " + enemy.Name + "! " + enemy.Strength + " Strength/" + enemy.Defense + " Defense/" + 
             enemy.CurrentHP + " HP. What will you do?");
             Console.WriteLine("1. Fight");
