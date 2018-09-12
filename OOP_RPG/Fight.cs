@@ -7,35 +7,45 @@ namespace OOP_RPG
     public class Fight
     {
         List<Monster> Monsters { get; set; }
-        public Game game { get; set; }
-        public Hero hero { get; set; }
+        public Game Game { get; set; }
+        public Hero Hero { get; set; }
+        public Monster Enemy { get; set; }
         
         public Fight(Hero hero, Game game) {
             this.Monsters = new List<Monster>();
-            this.hero = hero;
-            this.game = game;
-            this.AddMonster("Squid", 9, 8, 20);
-            this.AddMonster("Shark", 10, 6, 25);
-            this.AddMonster("Cobra", 7, 7, 21);
-            this.AddMonster("Hao", 6, 6, 26);
+            this.Hero = hero;
+            this.Game = game;
+            this.AddMonster("Squid", 15, 8, 20);
+            this.AddMonster("Shark", 12, 6, 18);
+            this.AddMonster("Zebra", 13, 7, 19);
+            this.AddMonster("Hao", 12, 6, 15);
 
+
+
+
+            Random random = new Random();
+            int randomNumber = random.Next(1);
+
+            
 
         }
 
+
         public void AddMonster(string name, int strength, int defense, int hp) {
-            var monster = new Monster();
-            monster.Name = name;
-            monster.Strength = strength;
-            monster.Defense = defense;
-            monster.OriginalHP = hp;
-            monster.CurrentHP = hp;
+            var monster = new Monster(name, strength, defense, hp);
+           
             this.Monsters.Add(monster);
         }
         
         public void Start() {
             var RandomMonster = Monsters.OrderBy(p => Guid.NewGuid()).FirstOrDefault();
+            var FirstMonster = this.Monsters.First();
             var SecondMonster = this.Monsters[1];
             var LastMonster = this.Monsters.Last();
+
+            var firstmonsterwithlessthan20HP = this.Monsters.Where(monster => monster.OriginalHP < 20).First();
+
+            var firstMonsterwith11strength = this.Monsters.Where(monster => monster.Strength >= 11).First();
             var enemy = RandomMonster;
             Console.WriteLine("You've encountered a " + enemy.Name + "! " + enemy.Strength + " Strength/" + enemy.Defense + " Defense/" + 
             enemy.CurrentHP + " HP. What will you do?");
@@ -45,13 +55,13 @@ namespace OOP_RPG
                 this.HeroTurn(enemy);
             }
             else { 
-                this.game.Main();
+                this.Game.Main();
             }
         }
         
         public void HeroTurn(Monster monster){
            var enemy = monster;
-           var compare = hero.Strength - enemy.Defense;
+           var compare = Hero.Strength - enemy.Defense;
            int damage;
            
            if(compare <= 0) {
@@ -77,17 +87,17 @@ namespace OOP_RPG
         public void MonsterTurn(Monster monster){
            var enemy = monster;
            int damage;
-           var compare = enemy.Strength - hero.Defense;
+           var compare = enemy.Strength - Hero.Defense;
            if(compare <= 0) {
                damage = 1;
-               hero.CurrentHP -= damage;
+               Hero.CurrentHP -= damage;
            }
            else{
                damage = compare;
-               hero.CurrentHP -= damage;
+               Hero.CurrentHP -= damage;
            }
            Console.WriteLine(enemy.Name + " does " + damage + " damage!");
-           if(hero.CurrentHP <= 0){
+           if(Hero.CurrentHP <= 0){
                this.Lose();
            }
            else
@@ -99,7 +109,7 @@ namespace OOP_RPG
         public void Win(Monster monster) {
             var enemy = monster;
             Console.WriteLine(enemy.Name + " has been defeated! You win the battle!");
-            game.Main();
+            Game.Main();
         }
         
         public void Lose() {
