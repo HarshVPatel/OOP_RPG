@@ -16,6 +16,7 @@ namespace OOP_RPG
                 var weapon2 = new Weapon("Axe", 10);
                 hero.WeaponsBag.Add(weapon2);
                 
+
                 foreach (var item in hero.WeaponsBag) {
                     Console.WriteLine(item.Name);
                 }

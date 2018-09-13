@@ -6,6 +6,7 @@ namespace OOP_RPG
 {
     public class Fight
     {
+
         List<Monster> Monsters { get; set; }
         public Game Game { get; set; }
         public Hero Hero { get; set; }
@@ -16,17 +17,15 @@ namespace OOP_RPG
             this.Hero = hero;
             this.Game = game;
             this.AddMonster("Squid", 15, 8, 20);
-            this.AddMonster("Shark", 12, 6, 18);
+            this.AddMonster("Shark", 12, 6, 25);
             this.AddMonster("Zebra", 13, 7, 19);
-            this.AddMonster("Hao", 12, 6, 15);
+            this.AddMonster("Hao", 12, 6, 18);
 
 
 
-
-            Random random = new Random();
-            int randomNumber = random.Next(1);
 
             
+
 
         }
 
@@ -42,6 +41,10 @@ namespace OOP_RPG
             var FirstMonster = this.Monsters.First();
             var SecondMonster = this.Monsters[1];
             var LastMonster = this.Monsters.Last();
+            Random random = new Random();
+            int randomNumber = random.Next(4);
+
+            this.Enemy = this.Monsters[randomNumber];
 
             var firstmonsterwithlessthan20HP = this.Monsters.Where(monster => monster.OriginalHP < 20).First();
 
@@ -109,6 +112,7 @@ namespace OOP_RPG
         public void Win(Monster monster) {
             var enemy = monster;
             Console.WriteLine(enemy.Name + " has been defeated! You win the battle!");
+            Hero.Gold = Hero.Gold + monster.Gold;
             Game.Main();
         }
         
