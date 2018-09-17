@@ -11,10 +11,11 @@ namespace OOP_RPG
         public List<Weapon> Weapons { get; set; }
         public List<Potion> Potions{ get; set; }
         public List<Armor> Armors { get; set; }
+        public List<Game>Game { get; set; }
 
  
        
-        public Shop()
+        public Shop(Game game)
         {
             this.Weapons = new List<Weapon>();
             this.Potions = new List<Potion>();
@@ -26,6 +27,9 @@ namespace OOP_RPG
             this.AddArmor("Metal Armor", 20, 5, 7);
             this.AddPotions("Healing Potion", 5, 5, 5);
         }
+
+       
+
         public string Name { get; set; }
         public int Strength { get; set; }
         public int Defense { get; set; }
@@ -61,6 +65,7 @@ namespace OOP_RPG
             Console.WriteLine("1. Buy Item");
             Console.WriteLine("2. Sell Item");
             Console.WriteLine("3. Return to Game Menu");
+
             var input = Console.ReadLine();
             if (input == "1")
             {
