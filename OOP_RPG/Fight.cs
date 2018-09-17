@@ -21,10 +21,11 @@ namespace OOP_RPG
             this.AddMonster("Zebra", 13, 7, 19);
             this.AddMonster("Hao", 12, 6, 18);
 
+            Random random = new Random();
+            int randomNumber = random.Next(4);
 
 
 
-            
 
 
         }
@@ -41,16 +42,13 @@ namespace OOP_RPG
             var FirstMonster = this.Monsters.First();
             var SecondMonster = this.Monsters[1];
             var LastMonster = this.Monsters.Last();
-            Random random = new Random();
-            int randomNumber = random.Next(4);
-
-            this.Enemy = this.Monsters[randomNumber];
+           
 
             var firstmonsterwithlessthan20HP = this.Monsters.Where(monster => monster.OriginalHP < 20).First();
 
             var firstMonsterwith11strength = this.Monsters.Where(monster => monster.Strength >= 11).First();
             var enemy = RandomMonster;
-            Console.WriteLine("You've encountered a " + enemy.Name + "! " + enemy.Strength + " Strength/" + enemy.Defense + " Defense/" + 
+            Console.WriteLine("You've encountered a " + enemy.Name + "! " + enemy.Strength + " Strength/" + enemy.Defense + " Defense/" +
             enemy.CurrentHP + " HP. What will you do?");
             Console.WriteLine("1. Fight");
             var input = Console.ReadLine();
@@ -112,7 +110,7 @@ namespace OOP_RPG
         public void Win(Monster monster) {
             var enemy = monster;
             Console.WriteLine(enemy.Name + " has been defeated! You win the battle!");
-            Hero.Gold = Hero.Gold + monster.Gold;
+            Hero.Gold = Hero.Gold + enemy.Gold;
             Game.Main();
         }
         

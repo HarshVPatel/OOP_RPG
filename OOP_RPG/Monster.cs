@@ -24,6 +24,9 @@ namespace OOP_RPG
             this.OriginalHP = hp;
             this.CurrentHP = hp;
             this.Gold = 5;
+
+            var random = new Random();
+            this.Gold = random.Next(100);
         }
 
     }
