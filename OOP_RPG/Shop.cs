@@ -12,9 +12,12 @@ namespace OOP_RPG
         public List<Potion> Potions{ get; set; }
         public List<Armor> Armors { get; set; }
         public List<Game>Game { get; set; }
+        public List<Armor> ArmorsBag { get; set; }
+        public List<Weapon> WeaponsBag { get; set; }
+        public List<Potion> PotionsBag { get; set; }
 
- 
-       
+
+
         public Shop(Game game)
         {
             this.Weapons = new List<Weapon>();
@@ -28,7 +31,7 @@ namespace OOP_RPG
             this.AddPotions("Healing Potion", 5, 5, 5);
         }
 
-       
+
 
         public string Name { get; set; }
         public int Strength { get; set; }
@@ -59,6 +62,9 @@ namespace OOP_RPG
             this.Armors.Add(armor);
 
         }
+
+        
+
         public void Menu()
         {
             Console.WriteLine("Welcome to my shop! What would you like to do?");
@@ -75,6 +81,10 @@ namespace OOP_RPG
             {
                 this.BuyfromUser();
             }
+            else if (input == "3")
+            {
+                this.Menu();
+            }
             else
             {
                 return;
@@ -83,22 +93,84 @@ namespace OOP_RPG
 
         public void ShowInventory()
         {
-            Console.WriteLine("*****" + this.Name + "*****");
-            Console.WriteLine("Original Value: " + this.OriginalValue);
-            var input = Console.ReadLine();
-            if (input == "itemNumber")
+            Console.WriteLine("1. Weapons");
+            Console.WriteLine("2. Armors");
+            Console.WriteLine("3. Potions");
+            Console.WriteLine("4. Return to main menu");
+            var selectedItem = Console.ReadLine();
+            if (selectedItem == "1")
             {
-                this.Sell();
+                foreach (var weapon in this.Weapons)
+                {
+                    Console.WriteLine(this.Weapons.IndexOf(weapon) + ") " + weapon.Name + " costs " + weapon.OriginalValue + " Gold");
+
+                }
+
+                Console.WriteLine("4. Return to main menu");
+                var choosenWeapon = Console.ReadLine();
+                if (choosenWeapon == "0" || choosenWeapon == "1" || choosenWeapon == "2")
+                {
+                    this.Sell(Convert.ToInt32(choosenWeapon), "weapon");
+                    Console.ReadLine();
+                    this.Menu();
+
+                }
+                else
+                {
+                    this.Menu();
+                }
             }
-            else if (input == "return")
+            if (selectedItem == "2")
+            {
+                foreach (var armor in this.Armors)
+                {
+
+                    Console.WriteLine(this.Armors.IndexOf(armor) + ") " + armor.Name + " costs " + this.OriginalValue + " Gold");
+
+                }
+                var chooseArmor = Console.ReadLine();
+                if (chooseArmor == "0" || chooseArmor == "1" || chooseArmor == "2")
+                {
+                    this.Sell(Convert.ToInt32(chooseArmor), "Armor");
+                    Console.ReadLine();
+                    this.Menu();
+
+                }
+                else
+                {
+                    this.Menu();
+                }
+            }
+            if (selectedItem == "3")
+            {
+                foreach (var p in this.Potions)
+                {
+                    Console.WriteLine(this.Potions.IndexOf(p) + ". " + p.Name + " costs " + p.OriginalValue + " Gold");
+
+                }
+                var choosePotion = Console.ReadLine();
+                if (choosePotion == "0" || choosePotion == "1" || choosePotion == "2")
+                {
+                    this.Sell(Convert.ToInt32(choosePotion), "potion");
+                    Console.ReadLine();
+                    this.Menu();
+                }
+                else
+                {
+                    this.Menu();
+                }
+            }
+            else if (selectedItem == "4" || selectedItem == "return")
             {
                 this.Menu();
-            }
-            else
-            {
-                return;
+                Console.ReadLine();
+
+
             }
         }
+
+
+      
 
         public void BuyfromUser()
         {
@@ -107,7 +179,7 @@ namespace OOP_RPG
             var input = Console.ReadLine();
             if (input == "itemNumber")
             {
-                this.Buy();
+                this.BuyfromUser();
             }
             else if (input == "return")
             {
@@ -119,12 +191,12 @@ namespace OOP_RPG
             }
         }
 
-        public void Buy()
+        public void SellfromUser()
         {
             Console.WriteLine("Buy items here.");
         }
 
-        public void Sell()
+        public void Sell(int v, string v1)
         {
             Console.WriteLine("Sell your items here.");
         }
